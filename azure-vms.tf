@@ -28,6 +28,10 @@ resource "azurerm_virtual_machine" "main" {
     admin_username = "${var.username}"
     admin_password = "${random_password.password.result}"
 
+    ssh_keys {
+      key_data = "${var.public_key}"
+      path = "/home/${var.username}/.ssh/authorized_keys"
+    }
     custom_data = "echo 'init test'"
   }
   os_profile_linux_config {
@@ -105,12 +109,16 @@ resource "azurerm_virtual_machine_scale_set" "prod-web-servers" {
   os_profile {
     computer_name_prefix = "${var.prefix}-vm-"
     admin_username = "${var.username}"
-    admin_password = "${random_password.password.result}"
+    admin_password = "${random_password.password}"
 
     custom_data = "echo 'init test'"
   }
   os_profile_linux_config {
     disable_password_authentication = true
+    ssh_keys {
+      key_data = "${var.public_key}"
+      path = "/home/${var.username}/.ssh/authorized_keys"
+    }
   }
   tags = {
     environment = "test"
