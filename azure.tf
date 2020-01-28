@@ -7,3 +7,6 @@ provider "azurerm" {
 variable "prefix" {
   default = "hashicorp-example"
 }
+variable "username" {
+  default = "ggillen"
+}
