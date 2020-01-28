@@ -28,13 +28,13 @@ resource "azurerm_virtual_machine" "main" {
     admin_username = "${var.username}"
     admin_password = "${random_password.password.result}"
 
+    custom_data = "echo 'init test'"
+  }
+  os_profile_linux_config {
     ssh_keys {
       key_data = "${var.public_key}"
       path = "/home/${var.username}/.ssh/authorized_keys"
     }
-    custom_data = "echo 'init test'"
-  }
-  os_profile_linux_config {
     disable_password_authentication = true
   }
   tags = {
