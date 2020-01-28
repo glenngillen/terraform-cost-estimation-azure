@@ -26,7 +26,7 @@ resource "azurerm_virtual_machine" "main" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "${var.username}"
-    admin_password = "${random_password.password}"
+    admin_password = "${random_password.password.result}"
 
     custom_data = "echo 'init test'"
   }
@@ -105,7 +105,7 @@ resource "azurerm_virtual_machine_scale_set" "prod-web-servers" {
   os_profile {
     computer_name_prefix = "${var.prefix}-vm-"
     admin_username = "${var.username}"
-    admin_password = "${random_password.password}"
+    admin_password = "${random_password.password.result}"
 
     custom_data = "echo 'init test'"
   }
