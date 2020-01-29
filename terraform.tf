@@ -3,7 +3,7 @@ terraform {
     hostname = "app.terraform.io"
     organization = "Compu-Global-Hyper-Mega-Net"
     workspaces {
-      name = "cost-estimation"
+      name = "cost-estimation-azure"
     }
   }
 }
