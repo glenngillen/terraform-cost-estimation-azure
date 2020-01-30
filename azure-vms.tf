@@ -2,7 +2,7 @@ variable "vm_size" {
   default = "Standard_B1s"
 }
 variable "capacity" {
-  default = 2
+  default = 0
 }
 resource "azurerm_virtual_machine" "main" {
   name                  = "${var.prefix}-vm"
