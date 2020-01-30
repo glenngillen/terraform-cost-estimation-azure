@@ -1,6 +1,9 @@
 variable "vm_size" {
   default = "Standard_B1s"
 }
+variable "capacity" {
+  default = 0
+}
 resource "azurerm_virtual_machine" "main" {
   name                  = "${var.prefix}-vm"
   location              = "${azurerm_resource_group.main.location}"
@@ -83,7 +86,7 @@ resource "azurerm_virtual_machine_scale_set" "prod-web-servers" {
   sku {
     name     = "${var.vm_size}"
     tier     = "Standard"
-    capacity = 0
+    capacity = "${var.capacity}"
   }
   network_profile {
     name    = "WebNetworkProfile"
@@ -109,7 +112,7 @@ resource "azurerm_virtual_machine_scale_set" "prod-web-servers" {
   os_profile {
     computer_name_prefix = "${var.prefix}-vm-"
     admin_username = "${var.username}"
-    admin_password = "${random_password.password.result}"
+    admin_password = "${random_password.password}"
 
     custom_data = "echo 'init test'"
   }
