@@ -1,5 +1,5 @@
 variable "vm_size" {
-  default = "Standard_B1s"
+  default = "Standard_D4"
 }
 variable "capacity" {
   default = 1
