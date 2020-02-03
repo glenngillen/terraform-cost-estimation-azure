@@ -2,7 +2,7 @@ variable "vm_size" {
   default = "Standard_DS4_v2"
 }
 variable "capacity" {
-  default = 1
+  default = 15
 }
 
 resource "azurerm_virtual_machine" "main" {
