@@ -5,8 +5,8 @@ variable "capacity" {
   default = 0
 }
 
-resource "azurerm_autoscale_setting" "web-scaler" {
-  name                = "myAutoscaleSetting"
+resource "azurerm_monitor_autoscale_setting" "web-scaler" {
+  name                = "webScaleSettings"
   enabled             = true
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
