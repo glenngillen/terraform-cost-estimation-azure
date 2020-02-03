@@ -2,45 +2,7 @@ variable "vm_size" {
   default = "Standard_B1s"
 }
 variable "capacity" {
-  default = 0
-}
-
-resource "azurerm_monitor_autoscale_setting" "web-scaler" {
-  name                = "webScaleSettings"
-  enabled             = true
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  target_resource_id  = azurerm_virtual_machine_scale_set.prod-web-servers.id
-
-  profile {
-    name = "forJuly"
-
-    capacity {
-      default = 0
-      minimum = 0
-      maximum = 10
-    }
-
-    rule {
-      metric_trigger {
-        metric_name        = "Percentage CPU"
-        metric_resource_id = azurerm_virtual_machine_scale_set.prod-web-servers.id
-        time_grain         = "PT1M"
-        statistic          = "Average"
-        time_window        = "PT5M"
-        time_aggregation   = "Average"
-        operator           = "GreaterThan"
-        threshold          = 90
-      }
-
-      scale_action {
-        direction = "Increase"
-        type      = "ChangeCount"
-        value     = "1"
-        cooldown  = "PT1M"
-      }
-    }
-  }
+  default = 1
 }
 
 resource "azurerm_virtual_machine" "main" {
@@ -167,5 +129,43 @@ resource "azurerm_virtual_machine_scale_set" "prod-web-servers" {
     owner = "ggillen"
     organization = "hashicorp"
     application = "example"
+  }
+}
+
+resource "azurerm_monitor_autoscale_setting" "web-scaler" {
+  name                = "webScaleSettings"
+  enabled             = true
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  target_resource_id  = azurerm_virtual_machine_scale_set.prod-web-servers.id
+
+  profile {
+    name = "demo"
+
+    capacity {
+      default = 0
+      minimum = 0
+      maximum = 10
+    }
+
+    rule {
+      metric_trigger {
+        metric_name        = "Percentage CPU"
+        metric_resource_id = azurerm_virtual_machine_scale_set.prod-web-servers.id
+        time_grain         = "PT1M"
+        statistic          = "Average"
+        time_window        = "PT5M"
+        time_aggregation   = "Average"
+        operator           = "GreaterThan"
+        threshold          = 90
+      }
+
+      scale_action {
+        direction = "Increase"
+        type      = "ChangeCount"
+        value     = "1"
+        cooldown  = "PT1M"
+      }
+    }
   }
 }
