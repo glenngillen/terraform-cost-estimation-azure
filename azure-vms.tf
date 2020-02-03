@@ -2,7 +2,7 @@ variable "vm_size" {
   default = "Standard_B1s"
 }
 variable "capacity" {
-  default = 1
+  default = 2
 }
 
 resource "azurerm_virtual_machine" "main" {
