@@ -1,5 +1,5 @@
 variable "vm_size" {
-  default = "Standard_D3s"
+  default = "Standard_DS4_v2"
 }
 variable "capacity" {
   default = 1
